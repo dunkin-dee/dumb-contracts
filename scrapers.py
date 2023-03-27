@@ -23,7 +23,7 @@ def get_contract(contract_address):
     return f'Error: {response.status_code}'
 
 
-def get_uniswap_pair_abi(pair_address):
+def get_abi(pair_address):
   # Replace with your own Etherscan API key
   api_key = config.etherscan_api_key
   
@@ -43,8 +43,8 @@ def get_uniswap_pair_abi(pair_address):
     raise Exception(f'Failed to get ABI for Uniswap pair at address {pair_address}')
 
 if __name__ == "__main__":
-  # sample_code = get_contract("0x5c7AD3EB8264eF91dD4d756Ef9759F7aa86744e7")
-  # print(sample_code)
-  pair_address = '0x2B296315e940B0382B2Ec0620399Ec239fFe6CfB'
-  abi = get_uniswap_pair_abi(pair_address)
-  print(abi)
+  sample_code = get_contract("0x5c7AD3EB8264eF91dD4d756Ef9759F7aa86744e7")
+  print(sample_code)
+  # pair_address = '0xdCE928e379FF0fa3bDD6d7c1665949b9d528890E'
+  # abi = get_uniswap_abi(pair_address)
+  # print(abi)
