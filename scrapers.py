@@ -23,12 +23,12 @@ def get_contract(contract_address):
     return f'Error: {response.status_code}'
 
 
-def get_abi(pair_address):
+def get_abi(address):
   # Replace with your own Etherscan API key
   api_key = config.etherscan_api_key
   
   # URL for the Etherscan API call to get the contract ABI
-  url = f'https://api.etherscan.io/api?module=contract&action=getabi&address={pair_address}&apikey={api_key}'
+  url = f'https://api.etherscan.io/api?module=contract&action=getabi&address={address}&apikey={api_key}'
   
   # Make the API request and get the response
   response = requests.get(url)
@@ -40,7 +40,7 @@ def get_abi(pair_address):
   
   # If the request was not successful, raise an exception
   else:
-    raise Exception(f'Failed to get ABI for Uniswap pair at address {pair_address}')
+    raise Exception(f'Failed to get ABI at {address}')
 
 if __name__ == "__main__":
   sample_code = get_contract("0x5c7AD3EB8264eF91dD4d756Ef9759F7aa86744e7")
