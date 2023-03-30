@@ -1,9 +1,8 @@
 import requests
 import config
 
-import requests
 
-def get_uniswap_pairs(from_block, to_block, api_key):
+def get_uniswap_pairs(from_block, to_block, api_key=config.etherscan_api_key):
   # Set the Uniswap factory contract address
   factory_address = "0x5C69bEe701ef814a2B6a3EDD4B1652CB9cc5aA6f"
   
@@ -33,7 +32,7 @@ def get_uniswap_pairs(from_block, to_block, api_key):
     pair = {}
     pair["token0"] = "0x"+log["topics"][1][-40:]
     pair["token1"] = "0x"+log["topics"][2][-40:]
-    pair["pair_address"] = log["address"]
+    pair["pair_address"] = "0x"+log["data"][26:66]
     pair["block_number"] = int(log["blockNumber"], 0)
     pair["timestamp"] = int(log["timeStamp"], 0)
     pairs.append(pair)
