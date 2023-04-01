@@ -43,7 +43,7 @@ def get_abi(address):
     raise Exception(f'Failed to get ABI at {address}')
 
 if __name__ == "__main__":
-  sample_code = get_contract("0x5c7AD3EB8264eF91dD4d756Ef9759F7aa86744e7")
+  sample_code = get_contract("0xe24a08592213f59534f5cE77018Cb19B39094251")
   print(sample_code)
   # pair_address = '0xdCE928e379FF0fa3bDD6d7c1665949b9d528890E'
   # abi = get_uniswap_abi(pair_address)
