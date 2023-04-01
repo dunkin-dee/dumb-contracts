@@ -34,7 +34,6 @@ def main(last_block, tokens_to_process, file_path="data/dumb_contracts.txt"):
             if token != weth:
               token_address = token
 
-          print(f"Checking {token_address} at pair{pair_instance['pair_address']}")
           #getting contracts and abis
           token_contract = scrapers.get_contract(token_address)
           pair_contract = scrapers.get_contract(pair_instance['pair_address'])
@@ -78,4 +77,4 @@ def main(last_block, tokens_to_process, file_path="data/dumb_contracts.txt"):
       quit()
 
 if __name__ == "__main__":
-  main(16933754, 1000)
+  main(16920848, 40000)
