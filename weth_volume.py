@@ -58,7 +58,7 @@ def get_trade_start(address, start_time):
           hourStartUnix_gt: %i
         }, 
         orderBy: hourStartUnix, 
-        orderDirection: asc,
+        orderDirection: desc,
         first: 24) {
       hourStartUnix
       hourlyVolumeToken0
@@ -77,10 +77,53 @@ def get_trade_start(address, start_time):
     if float(hour_data['hourlyVolumeToken0']) > 0:
       return int(hour_data['hourStartUnix'])
     
-  
+def get_pool_weth(address, start_time):
+  # Set the Uniswap subgraph URL
+  uniswap_url = 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v2'
+
+  # Set the Uniswap pool address
+  pair_address = address.lower()
+
+  # Set the GraphQL query
+  query = '''
+    query {
+      pairDayDatas(
+        where: {
+          pairAddress: "%s",
+          date_lt: %i
+          },
+          first: 1, 
+          orderBy: date, 
+          orderDirection: desc) {
+        date
+        reserve0
+        reserve1
+        token0 {
+          id
+        }
+        token1 {
+          id
+        }
+      }
+    }
+  '''%(pair_address, start_time)
+
+
+
+  # Send the GraphQL request
+  response = requests.post(uniswap_url, json={'query': query})
+
+  # Parse the response JSON
+  data = response.json()
+  if data['data']['pairDayDatas'][0]['token0']['id'] == '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2':
+    return float(data['data']['pairDayDatas'][0]['reserve0'])
+  else:
+    return float(data['data']['pairDayDatas'][0]['reserve1'])
 
 
 if __name__ == "__main__":
-  h = get_trade_start("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), int((datetime.now() - timedelta(days=9)).timestamp()))
-  v = get_weth_volume("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), h)
-  print(v)
+  # h = get_trade_start("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), int((datetime.now() - timedelta(days=9)).timestamp()))
+  # v = get_weth_volume("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), h)
+  # print(v)
+  h = get_pool_weth("0x04Ebc9a331ca43c933b1C76C5cFCfFcF4FdF433E", int(datetime.now().timestamp()))
+  print(h)
