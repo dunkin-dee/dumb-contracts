@@ -116,9 +116,14 @@ def get_pool_weth(address, start_time):
   # Parse the response JSON
   data = response.json()
   if data['data']['pairDayDatas'][0]['token0']['id'] == '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2':
-    return float(data['data']['pairDayDatas'][0]['reserve0'])
+    pool_weth = float(data['data']['pairDayDatas'][0]['reserve0'])
   else:
-    return float(data['data']['pairDayDatas'][0]['reserve1'])
+    pool_weth = float(data['data']['pairDayDatas'][0]['reserve1'])
+
+  if pool_weth:
+    return pool_weth
+  else:
+    return 0
 
 
 if __name__ == "__main__":
