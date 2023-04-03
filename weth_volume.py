@@ -58,8 +58,8 @@ def get_trade_start(address, start_time):
           hourStartUnix_gt: %i
         }, 
         orderBy: hourStartUnix, 
-        orderDirection: desc,
-        first: 24) {
+        orderDirection: asc,
+        first: 1) {
       hourStartUnix
       hourlyVolumeToken0
       hourlyVolumeToken1
@@ -127,8 +127,9 @@ def get_pool_weth(address, start_time):
 
 
 if __name__ == "__main__":
-  # h = get_trade_start("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), int((datetime.now() - timedelta(days=9)).timestamp()))
-  # v = get_weth_volume("0xA9Cac16fE9f7CEABfDd0D99A8168A27D23037D52".lower(), h)
-  # print(v)
-  h = get_pool_weth("0x04Ebc9a331ca43c933b1C76C5cFCfFcF4FdF433E", int(datetime.now().timestamp()))
+  h = get_trade_start("0x28a19dd48b732ce10a05e683ccfca4aa21ed29a1".lower(), 1679944235)
   print(h)
+  v = get_weth_volume("0x28a19dd48b732ce10a05e683ccfca4aa21ed29a1".lower(), h)
+  print(v)
+  # h = get_pool_weth("0x04Ebc9a331ca43c933b1C76C5cFCfFcF4FdF433E", int(datetime.now().timestamp()))
+  # print(h)
