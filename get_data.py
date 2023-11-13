@@ -87,4 +87,4 @@ def main(last_block, tokens_to_process, file_path="data/dumb_contracts.txt"):
       quit()
 
 if __name__ == "__main__":
-  main(16347900, 23000)
+  main(16941976, 40000)
